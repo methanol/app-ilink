@@ -40,6 +40,7 @@ const Button = styled.button`
 
 	&:disabled {
 		opacity: 0.5;
+		cursor: auto;
   }
 `;
 

@@ -23,6 +23,4 @@ export const moveWordInsideCheckArea = createAction(ActionType.WORD_INTO_CHECK, 
   payload: {card, newIndex},
 }));
 
-// export const showMoreMovies = createAction(ActionType.MORE_MOVIES);
-
 

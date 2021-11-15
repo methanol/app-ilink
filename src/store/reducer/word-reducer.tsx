@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import { idText } from 'typescript';
+// import { idText } from 'typescript';
 
 import {addWordToCheckArea, addWordToSourceArea, moveWordInsideSourceArea, moveWordInsideCheckArea} from '../actions';
 
@@ -20,6 +20,23 @@ function addWordToList(words: SingleWord[] | [], word: SingleWord) {
   const newList = words.slice();
 	const newIndex = words.length ? words.length : 0;
 	newList.splice(newIndex, 0, word);
+  return newList;
+}
+
+function addWordToListWithSorting(words: SingleWord[] | [], word: SingleWord) {
+  const newList = words.slice();
+	const newIndex = words.length ? words.length : 0;
+	newList.splice(newIndex, 0, word);
+
+	newList.sort((a, b) => {
+		if (a.id > b.id) {
+			return 1;
+		}
+		if (a.id < b.id) {
+			return -1;
+		}
+		return 0;
+	});
   return newList;
 }
 
@@ -121,7 +138,7 @@ const wordCardReducer = createReducer(initState, (builder) => {
       state.sourceCards = removeWordFromList(state.sourceCards, action.payload.card)
     })
     .addCase(addWordToSourceArea, (state, action) => {
-      state.sourceCards = addWordToList(state.sourceCards, action.payload.card)
+      state.sourceCards = addWordToListWithSorting(state.sourceCards, action.payload.card)
       state.checkCards = removeWordFromList(state.checkCards, action.payload.card)
     })
     .addCase(moveWordInsideSourceArea, (state, action) => {
