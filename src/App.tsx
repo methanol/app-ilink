@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+// import logo from './logo.svg';
+// import './App.css';
+import Header from './components/header/header';
+import {CheckingArea} from './components/checking-area/checking-area';
+import {SourceArea} from './components/source-area/source-area';
+import ExampleArea from './components/example-area/example-area';
+import {CheckButton} from './components/check-button/check-button';
+
+const MainWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	margin: 0 auto 0 auto;
+	width: 482px;
+	background: #E5E5E5;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+	border: 2px solid #4B4B4B;
+	border-radius: 15px;
+`;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+	return (
+		<MainWrapper>
+			<Header/>
+			<ExampleArea/>
+			<CheckingArea/>
+			<SourceArea/>
+			<CheckButton/>
+		</MainWrapper>
+		);
+	}
 
 export default App;
