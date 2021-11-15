@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import {useSelector} from 'react-redux';
 
-import {getOriginText, createUserKeySelector} from '../../store/selector';
+import {getOriginText, createUserKeySelector, createTextForSpeechSelector} from '../../store/selector';
+import SpeakButton from './speak-button';
+import { isAbsolute } from 'path';
 
 const ButtonWrapper = styled.div`
 	width: 100%;
@@ -32,6 +34,7 @@ const Button = styled.button`
 	box-shadow: -2px -4px 8px #FFFFFF, 2px 4px 8px rgba(0, 0, 0, 0.2);
 	cursor: pointer;
 	opacity: 1;
+	margin-top: 10px;
 
 	&:active {
 		background: linear-gradient(91.2deg, #FFFFFF 0%, #F2F2F2 100%);
@@ -46,7 +49,7 @@ const Button = styled.button`
 
 const ErrorMessage = styled.div<{opacity: string}>`
 	position: absolute;
-	top: -50px;
+	top: -55px;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 24px;
@@ -59,7 +62,7 @@ const ErrorMessage = styled.div<{opacity: string}>`
 
 const CorrectMessage = styled.div<{opacity: string}>`
 	position: absolute;
-	top: -50px;
+	top: -55px;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 24px;
@@ -73,13 +76,17 @@ const CorrectMessage = styled.div<{opacity: string}>`
 export function CheckButton() {
 	const originText = useSelector(getOriginText);
 	const userKey = useSelector(createUserKeySelector);
+	const textForSpeech = useSelector(createTextForSpeechSelector);
 	const controlKey = originText.correctAnswerKey;
 
 	const [messageOpacity, setMessageOpacity] = useState({
 		errorOpacity: '0',
 		correctOpacity: '0',
-		speakButtonopacity: '0',
 	});
+
+	const sayElementStyles = {
+		display: messageOpacity.correctOpacity === '1' ? 'block' : 'none',
+	}
 
 	let messageTimeout: any;
 
@@ -122,10 +129,15 @@ export function CheckButton() {
 	}
 
 	return (
-		<ButtonWrapper>
+		<div>
+			<div style = {{display: sayElementStyles.display, position: 'absolute', top: '91%', right: '45%'}}>
+				<SpeakButton vol = {1} text = {textForSpeech}/>
+			</div>
+			<ButtonWrapper>
 			<ErrorMessage opacity = {messageOpacity.errorOpacity}>Something wrong!</ErrorMessage>
 			<CorrectMessage opacity = {messageOpacity.correctOpacity}>The answer is correct!</CorrectMessage>
 			<Button disabled = {userKey === 0} name="checkButton" onClick = {handleButtonClick}>Check</Button>
-		</ButtonWrapper>
+			</ButtonWrapper>
+		</div>
 	);
 }

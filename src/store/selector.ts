@@ -9,3 +9,8 @@ export const createUserKeySelector = createSelector(
   getCheckCards,
   (cards: any) => Number(cards.map((it: any) => it.id).join('')
 ));
+
+export const createTextForSpeechSelector = createSelector(
+  getCheckCards,
+  (cards: any) => cards.map((it: any) => it.text).join(' ')
+);

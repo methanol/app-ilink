@@ -17,7 +17,7 @@ const SourceContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	margin-bottom: 80px;
+	margin-bottom: 70px;
 	box-sizing: border-box;
 	border: 2px solid #4B4B4B;
 	border-radius: 15px;

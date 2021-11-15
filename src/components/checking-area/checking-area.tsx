@@ -83,16 +83,13 @@ export const CheckingArea: FC = memo(function CheckingArea() {
 
   return (
     <CheckingContainer ref={drop}>
-			{linesPositions.map((it) => (
-				<LineWrapper topPosition = {it}>
+			{linesPositions.map((it, ind) => (
+				<LineWrapper topPosition = {it} key = {ind} /*lines are static*/> 
 				<svg width="478" height="2" viewBox="0 0 478 2" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M1 1H483" stroke="#4B4B4B" strokeLinecap="round"/>
 				</svg>
 			</LineWrapper>
 			))}
-			{/* <svg width="484" height="2" viewBox="0 0 484 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M1 1H483" stroke="#4B4B4B" strokeLinecap="round"/>
-			</svg> */}
       {checkCards.map((card: any) => (
         <WordCard
           key={card.id}
