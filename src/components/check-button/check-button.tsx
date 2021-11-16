@@ -128,7 +128,7 @@ export function CheckButton() {
 			<ButtonWrapper>
 				<ErrorMessage opacity = {messageOpacity.errorOpacity}>Something wrong!</ErrorMessage>
 				<CorrectMessage opacity = {messageOpacity.correctOpacity}>The answer is correct!</CorrectMessage>
-				<Button disabled = {userKey === 0} name="checkButton" onClick = {handleButtonClick}>Check</Button>
+				<Button disabled = {userKey === 0} name="checkButton" onClick = {handleButtonClick} className = 'check-button'>Check</Button>
 			</ButtonWrapper>
 		</div>
 	);
