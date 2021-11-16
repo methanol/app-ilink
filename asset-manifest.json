@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.js": "/app-ilink/static/js/main.54c05c46.chunk.js",
+    "main.js.map": "/app-ilink/static/js/main.54c05c46.chunk.js.map",
+    "runtime-main.js": "/app-ilink/static/js/runtime-main.abc8b8e4.js",
+    "runtime-main.js.map": "/app-ilink/static/js/runtime-main.abc8b8e4.js.map",
+    "static/js/2.c27bcb64.chunk.js": "/app-ilink/static/js/2.c27bcb64.chunk.js",
+    "static/js/2.c27bcb64.chunk.js.map": "/app-ilink/static/js/2.c27bcb64.chunk.js.map",
+    "index.html": "/app-ilink/index.html",
+    "static/js/2.c27bcb64.chunk.js.LICENSE.txt": "/app-ilink/static/js/2.c27bcb64.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.abc8b8e4.js",
+    "static/js/2.c27bcb64.chunk.js",
+    "static/js/main.54c05c46.chunk.js"
+  ]
+}
