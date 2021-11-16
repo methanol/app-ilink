@@ -4,7 +4,6 @@ import {useSelector} from 'react-redux';
 
 import {getOriginText, createUserKeySelector, createTextForSpeechSelector} from '../../store/selector';
 import SpeakButton from './speak-button';
-import { isAbsolute } from 'path';
 
 const ButtonWrapper = styled.div`
 	width: 100%;
@@ -44,10 +43,10 @@ const Button = styled.button`
 	&:disabled {
 		opacity: 0.5;
 		cursor: auto;
-  }
+	}
 `;
 
-const ErrorMessage = styled.div<{opacity: string}>`
+const BaseMessage = styled.div<{opacity: string}>`
 	position: absolute;
 	top: -55px;
 	font-style: normal;
@@ -55,22 +54,16 @@ const ErrorMessage = styled.div<{opacity: string}>`
 	font-size: 24px;
 	line-height: 28px;
 	margin-bottom: 27px;
+	opacity: ${(props) => props.opacity};
+	text-shadow: -1px -2px 2px #FFFFFF, 1px 2px 2px rgba(91, 13, 13, 0.5);
+`;
+
+const ErrorMessage = styled(BaseMessage)`
 	color: #FF0000;
-	opacity: ${(props) => props.opacity};
-	text-shadow: -1px -2px 2px #FFFFFF, 1px 2px 2px rgba(91, 13, 13, 0.5);
 `;
 
-const CorrectMessage = styled.div<{opacity: string}>`
-	position: absolute;
-	top: -55px;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 24px;
-	line-height: 28px;
-	margin-bottom: 27px;
+const CorrectMessage = styled(BaseMessage)`
 	color: green;
-	opacity: ${(props) => props.opacity};
-	text-shadow: -1px -2px 2px #FFFFFF, 1px 2px 2px rgba(91, 13, 13, 0.5);
 `;
 
 export function CheckButton() {
@@ -92,7 +85,7 @@ export function CheckButton() {
 
 	const validateUserMessage = (controlKey: number, userKey: number): void => {
 		if (controlKey === userKey) {
-			console.log("correct answer!");
+			// console.log("correct answer!");
 			setMessageOpacity((prevState) => ({
 				...prevState,
 				correctOpacity: '1',
@@ -106,7 +99,7 @@ export function CheckButton() {
 			// 	}));
 			// }, 2500);
 		} else {
-			console.log("wrong answer!");
+			// console.log("wrong answer!");
 			setMessageOpacity((prevState) => ({
 				...prevState,
 				errorOpacity: '1',
@@ -122,21 +115,20 @@ export function CheckButton() {
 		}
 	}
 
-	const handleButtonClick = () => {
+	const handleButtonClick = (): void => {
 		clearTimeout(messageTimeout);
-		console.log("button clicked!", userKey);
 		validateUserMessage(controlKey, userKey);
 	}
 
 	return (
 		<div>
-			<div style = {{display: sayElementStyles.display, position: 'absolute', top: '91%', right: '45%'}}>
+			<div style = {{display: sayElementStyles.display, position: 'absolute', top: '82%', right: '40%'}}>
 				<SpeakButton vol = {1} text = {textForSpeech}/>
 			</div>
 			<ButtonWrapper>
-			<ErrorMessage opacity = {messageOpacity.errorOpacity}>Something wrong!</ErrorMessage>
-			<CorrectMessage opacity = {messageOpacity.correctOpacity}>The answer is correct!</CorrectMessage>
-			<Button disabled = {userKey === 0} name="checkButton" onClick = {handleButtonClick}>Check</Button>
+				<ErrorMessage opacity = {messageOpacity.errorOpacity}>Something wrong!</ErrorMessage>
+				<CorrectMessage opacity = {messageOpacity.correctOpacity}>The answer is correct!</CorrectMessage>
+				<Button disabled = {userKey === 0} name="checkButton" onClick = {handleButtonClick}>Check</Button>
 			</ButtonWrapper>
 		</div>
 	);

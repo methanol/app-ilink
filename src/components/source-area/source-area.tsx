@@ -4,11 +4,10 @@ import styled from 'styled-components';
 import {useSelector, useDispatch} from 'react-redux';
 
 import { WordCard } from '../word-card/word-card';
-// import update from 'immutability-helper';
-import { ItemTypes } from '../../dnd-types/item-types';
+import { CardType } from '../../dnd-types/item-types';
 import {getSourceCards, getBaseCards} from '../../store/selector';
 import {moveWordInsideSourceArea, addWordToSourceArea} from '../../store/actions';
-import {findCard} from '../../utils';
+import {findCard, SingleWord} from '../../utils';
 
 const SourceContainer = styled.div`
 	width: 95%;
@@ -23,24 +22,20 @@ const SourceContainer = styled.div`
 	border-radius: 15px;
 `;
 
-export interface SingleWord {
-  id: number,
-	text: string,
-}
-
 export const SourceArea: FC = memo(function SourceArea() {
 	const sourceCards = useSelector(getSourceCards);
 	const baseCards = useSelector(getBaseCards);
 
 	const dispatch = useDispatch();
-	const moveWordInsideSourceAreaAction = (card: SingleWord | undefined, newIndex: number) => {
+	const moveWordInsideSourceAreaAction = useCallback((card: SingleWord | undefined, newIndex: number) => {
 		dispatch(moveWordInsideSourceArea(card, newIndex));
-	};
-	const addWordToSourceAreaAction = (card: SingleWord) => {
-    dispatch(addWordToSourceArea(card));
-  };
+	},[dispatch])
 
-  const findSourceCard = useCallback((id) => findCard(id, sourceCards),[sourceCards]);
+	const addWordToSourceAreaAction = (card: SingleWord) => {
+		dispatch(addWordToSourceArea(card));
+	};
+
+	const findSourceCard = useCallback((id) => findCard(id, sourceCards),[sourceCards]);
 
 	const findOriginCard = (id: number) => {
 		const originCard = baseCards.filter((it: SingleWord) => it.id === id)[0]
@@ -50,23 +45,22 @@ export const SourceArea: FC = memo(function SourceArea() {
 		}
 	};
 
-  const moveCard = useCallback((id: number, atIndex: number) => {
-      const {card} = findSourceCard(id);
+	const moveCard = useCallback((id: number, atIndex: number) => {
+			const {card} = findSourceCard(id);
 			
 			if (card) {
 				moveWordInsideSourceAreaAction(card, atIndex);
 			}
-    },
-    [findSourceCard],
-  )
+		},
+		[findSourceCard, moveWordInsideSourceAreaAction],
+	)
 
 	const [, drop] = useDrop(() => ({ 
-		accept: ItemTypes.WORD ,
+		accept: CardType.WORD ,
 		drop(item: SingleWord) {
 			const {card} = findSourceCard(item.id);
 			if (!card) {
 				const {originCard} = findOriginCard(item.id);
-				console.log("item>>>", originCard);
 				addWordToSourceAreaAction(originCard);
 			}
 			return undefined
@@ -74,17 +68,17 @@ export const SourceArea: FC = memo(function SourceArea() {
 	}),
 	[sourceCards]);
 
-  return (
-    <SourceContainer ref={drop}>
-      {sourceCards.map((card: SingleWord) => (
-        <WordCard
-          key={card.id}
-          id={card.id}
-          text={card.text}
-          moveCard={moveCard}
-          findCard={findSourceCard}
-        />
-      ))}
-    </SourceContainer>
-  )
+	return (
+		<SourceContainer ref={drop}>
+			{sourceCards.map((card: SingleWord) => (
+				<WordCard
+					key={card.id}
+					id={card.id}
+					text={card.text}
+					moveCard={moveCard}
+					findCard={findSourceCard}
+				/>
+			))}
+		</SourceContainer>
+	)
 })

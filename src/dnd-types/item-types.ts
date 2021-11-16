@@ -1,3 +1,3 @@
-export const ItemTypes = {
-  WORD: 'word',
+export const CardType = {
+	WORD: 'word',
 }

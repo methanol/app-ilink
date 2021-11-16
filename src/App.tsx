@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// import logo from './logo.svg';
-// import './App.css';
 import Header from './components/header/header';
 import {CheckingArea} from './components/checking-area/checking-area';
 import {SourceArea} from './components/source-area/source-area';
@@ -22,6 +20,7 @@ const MainWrapper = styled.div`
     sans-serif;
 	border: 2px solid #4B4B4B;
 	border-radius: 15px;
+	position: relative;
 `;
 
 function App() {

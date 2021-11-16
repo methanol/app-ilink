@@ -2,7 +2,7 @@ import { FC, memo } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import styled from 'styled-components';
 
-import { ItemTypes } from "../../dnd-types/item-types";
+import { CardType } from "../../dnd-types/item-types";
 
 const WordContainer = styled.div`
 	padding: 5px 18px;
@@ -24,57 +24,55 @@ const WordContainer = styled.div`
 `;
 
 export interface CardProps {
-  id: number;
-  text: string;
-  moveCard: (id: number, to: number) => void;
-  findCard: (id: number) => { index: number };
+	id: number;
+	text: string;
+	moveCard: (id: number, to: number) => void;
+	findCard: (id: number) => { index: number };
 }
 
 interface Item {
-  id: number;
-  originalIndex: number;
+	id: number;
+	originalIndex: number;
 }
 
 export const WordCard: FC<CardProps> = memo(function Card({id, text, moveCard, findCard}) {
-  const originalIndex = findCard(id).index;
-  const [{ opacity }, drag] = useDrag(
-    () => ({
-      type: ItemTypes.WORD,
-      item: { id, originalIndex, foo: "bar" },
-      collect: (monitor) => ({
+	const originalIndex = findCard(id).index;
+	const [{ opacity }, drag] = useDrag(
+		() => ({
+			type: CardType.WORD,
+			item: { id, originalIndex },
+			collect: (monitor) => ({
 				opacity: monitor.isDragging() ? 0 : 1
-      }),
-      end: (item, monitor) => {
-        const { id: droppedId, originalIndex } = item;
-        const didDrop = monitor.didDrop();
-        if (!didDrop) {
-          moveCard(droppedId, originalIndex);
-        }
-				//send action here
-      }
-    }),
-    [id, originalIndex, moveCard]
-  );
+			}),
+			end: (item, monitor) => {
+				const { id: droppedId, originalIndex } = item;
+				const didDrop = monitor.didDrop();
+				if (!didDrop) {
+					moveCard(droppedId, originalIndex);
+				}
+			}
+		}),
+		[id, originalIndex, moveCard]
+	);
 
-  const [, drop] = useDrop(
-    () => ({
-      accept: ItemTypes.WORD,
-      canDrop: () => false,
-      hover({ id: draggedId, originalIndex }: Item) {
-        if (draggedId !== id) {
-          const { index: overIndex } = findCard(id);
+	const [, drop] = useDrop(
+		() => ({
+			accept: CardType.WORD,
+			canDrop: () => false,
+			hover({ id: draggedId }: Item) {
+				if (draggedId !== id) {
+					const { index: overIndex } = findCard(id);
 					moveCard(draggedId, overIndex);
-					// moveOtherCard(draggedId, overIndex);
 					
-        }
-      }
-    }),
-    [findCard, moveCard]
-  );
+				}
+			}
+		}),
+		[findCard, moveCard]
+	);
 
-  return (
-    <WordContainer ref={(node) => drag(drop(node))} style = {{opacity}}>
+	return (
+		<WordContainer ref={(node) => drag(drop(node))} style = {{opacity}}>
 			{text}
-    </WordContainer>
-  );
+		</WordContainer>
+	);
 });

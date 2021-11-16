@@ -16,7 +16,7 @@ const Title = styled.h1<TitleProps>`
 	margin-bottom: 56px;
 `;
 
-export default function Header(props: { isHighlighted?: boolean | undefined; }) {
+export default function Header(props: { isHighlighted?: boolean; }) {
 	return (
 		<Title isHighlighted = {props.isHighlighted}>Translate this sentence</Title>
 	);
