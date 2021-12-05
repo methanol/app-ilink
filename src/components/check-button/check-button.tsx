@@ -81,7 +81,7 @@ export function CheckButton() {
 		display: messageOpacity.correctOpacity === '1' ? 'block' : 'none',
 	}
 
-	let messageTimeout: any;
+	let messageTimeout: ReturnType<typeof setTimeout> = setTimeout(() => '', 2000);
 
 	const validateUserMessage = (controlKey: number, userKey: number): void => {
 		if (controlKey === userKey) {

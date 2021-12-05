@@ -8,6 +8,7 @@ import { CardType } from '../../dnd-types/item-types';
 import {getBaseCards, getCheckCards} from '../../store/selector';
 import {moveWordInsideCheckArea, addWordToCheckArea} from '../../store/actions';
 import {findCard, SingleWord} from '../../utils';
+import line from '../../svg/line.svg';
 
 const CheckingContainer = styled.div`
 	width: 100%;
@@ -15,8 +16,9 @@ const CheckingContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	margin-bottom: 40px;
-	position: relative
+	margin-bottom: 0;
+	position: relative;
+	padding: 40px 0;
 `;
 
 const LineWrapper = styled.div<{topPosition: string}>`
@@ -25,7 +27,7 @@ const LineWrapper = styled.div<{topPosition: string}>`
 	left: 0;
 `;
 
-const linesPositions: string[] = ['-25px', '25px', '75px'];
+const linesPositions: string[] = ['15px', '65px', '115px'];
 
 export const CheckingArea: FC = memo(function CheckingArea() {
 	const baseCards = useSelector(getBaseCards);
@@ -78,12 +80,10 @@ export const CheckingArea: FC = memo(function CheckingArea() {
 		<CheckingContainer ref={drop}>
 			{linesPositions.map((it, ind) => (
 				<LineWrapper topPosition = {it} key = {ind} /*lines are static*/> 
-				<svg width="478" height="2" viewBox="0 0 478 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M1 1H483" stroke="#4B4B4B" strokeLinecap="round"/>
-				</svg>
+				<img src={line} width="478" height="2" alt="word-line" />
 			</LineWrapper>
 			))}
-			{checkCards.map((card: any) => (
+			{checkCards.map((card: SingleWord) => (
 				<WordCard
 					key={card.id}
 					id={card.id}

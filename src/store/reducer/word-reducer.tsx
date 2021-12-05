@@ -3,11 +3,7 @@ import {createReducer} from '@reduxjs/toolkit';
 
 import {addWordToCheckArea, addWordToSourceArea, moveWordInsideSourceArea, moveWordInsideCheckArea} from '../actions';
 import {mockCards, mockOriginText} from '../../mocks/cards';
-
-export interface SingleWord {
-	id: number,
-	text: string,
-}
+import {SingleWord, WordsState} from '../../utils';
 
 function updateWordsList(words: SingleWord[], word: SingleWord, newIndex: number) {
 	const newList = words.slice();
@@ -48,7 +44,7 @@ function removeWordFromList(words: SingleWord[], word: SingleWord) {
 	return newList;
 }
 
-const initState: {baseCards: any, sourceCards: any, checkCards: any, originText: any} = {
+const initState: WordsState = {
 	originText: mockOriginText,
 	baseCards: mockCards,
 	sourceCards: mockCards,

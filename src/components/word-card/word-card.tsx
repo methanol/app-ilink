@@ -14,7 +14,7 @@ const WordContainer = styled.div`
 	line-height: 21px;
 	font-weight: normal;
 	color: #000000;
-	border: 1px solid #C9C9C9
+	border: 1px solid #C9C9C9;
 	margin-right: 10px;
 	height: 30px;
 	box-sizing: border-box;
