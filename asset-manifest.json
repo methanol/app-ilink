@@ -1,17 +1,20 @@
 {
   "files": {
-    "main.js": "/app-ilink/static/js/main.54c05c46.chunk.js",
-    "main.js.map": "/app-ilink/static/js/main.54c05c46.chunk.js.map",
+    "main.js": "/app-ilink/static/js/main.640bfaf2.chunk.js",
+    "main.js.map": "/app-ilink/static/js/main.640bfaf2.chunk.js.map",
     "runtime-main.js": "/app-ilink/static/js/runtime-main.abc8b8e4.js",
     "runtime-main.js.map": "/app-ilink/static/js/runtime-main.abc8b8e4.js.map",
-    "static/js/2.c27bcb64.chunk.js": "/app-ilink/static/js/2.c27bcb64.chunk.js",
-    "static/js/2.c27bcb64.chunk.js.map": "/app-ilink/static/js/2.c27bcb64.chunk.js.map",
+    "static/js/2.d07d0033.chunk.js": "/app-ilink/static/js/2.d07d0033.chunk.js",
+    "static/js/2.d07d0033.chunk.js.map": "/app-ilink/static/js/2.d07d0033.chunk.js.map",
     "index.html": "/app-ilink/index.html",
-    "static/js/2.c27bcb64.chunk.js.LICENSE.txt": "/app-ilink/static/js/2.c27bcb64.chunk.js.LICENSE.txt"
+    "static/js/2.d07d0033.chunk.js.LICENSE.txt": "/app-ilink/static/js/2.d07d0033.chunk.js.LICENSE.txt",
+    "static/media/line.02399064.svg": "/app-ilink/static/media/line.02399064.svg",
+    "static/media/person.d70a827e.svg": "/app-ilink/static/media/person.d70a827e.svg",
+    "static/media/phrase-outline.edca4a39.svg": "/app-ilink/static/media/phrase-outline.edca4a39.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.abc8b8e4.js",
-    "static/js/2.c27bcb64.chunk.js",
-    "static/js/main.54c05c46.chunk.js"
+    "static/js/2.d07d0033.chunk.js",
+    "static/js/main.640bfaf2.chunk.js"
   ]
 }
