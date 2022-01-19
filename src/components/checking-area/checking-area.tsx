@@ -35,8 +35,8 @@ export const CheckingArea: FC = memo(function CheckingArea() {
 
 	const dispatch = useDispatch();
 
-	const addWordToCheckAreaAction = (card: SingleWord): void => {
-		dispatch(addWordToCheckArea(card));
+	const addWordToCheckAreaAction = (card: SingleWord, atIndex?: number): void => {
+		dispatch(addWordToCheckArea(card, atIndex));
 	};
 
 	const moveWordInsideCheckAreaAction = useCallback((card: SingleWord | undefined, newIndex: number) => {
@@ -58,6 +58,9 @@ export const CheckingArea: FC = memo(function CheckingArea() {
 
 			if (card) {
 				moveWordInsideCheckAreaAction(card, atIndex);
+			} else {
+				const {originCard} = findOriginCard(id);
+				addWordToCheckAreaAction(originCard, atIndex);
 			}
 		},
 		[findCheckCard, moveWordInsideCheckAreaAction],

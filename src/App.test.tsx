@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 import { Provider } from 'react-redux';
@@ -8,7 +8,7 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
 let store = null;
-let fakeApp: any = null;
+let fakeApp: ReactElement;
 
 describe('Application render', () => {
 

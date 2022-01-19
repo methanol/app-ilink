@@ -6,7 +6,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { WordCard } from '../word-card/word-card';
 import { CardType } from '../../dnd-types/item-types';
 import {getSourceCards, getBaseCards} from '../../store/selector';
-import {moveWordInsideSourceArea, addWordToSourceArea} from '../../store/actions';
+import {moveWordInsideSourceArea, addWordToSourceArea, makeWordMoving} from '../../store/actions';
 import {findCard, SingleWord} from '../../utils';
 
 const SourceContainer = styled.div`
@@ -35,6 +35,10 @@ export const SourceArea: FC = memo(function SourceArea() {
 		dispatch(addWordToSourceArea(card));
 	};
 
+	const sortWordAction = () => {
+		dispatch(makeWordMoving());
+	};
+
 	const findSourceCard = useCallback((id) => findCard(id, sourceCards),[sourceCards]);
 
 	const findOriginCard = (id: number) => {
@@ -55,13 +59,20 @@ export const SourceArea: FC = memo(function SourceArea() {
 		[findSourceCard, moveWordInsideSourceAreaAction],
 	)
 
+	let movingTimeout: ReturnType<typeof setTimeout> = setTimeout(() => '', 1000);
+
 	const [, drop] = useDrop(() => ({ 
 		accept: CardType.WORD ,
 		drop(item: SingleWord) {
 			const {card} = findSourceCard(item.id);
 			if (!card) {
+				clearTimeout(movingTimeout);
 				const {originCard} = findOriginCard(item.id);
 				addWordToSourceAreaAction(originCard);
+
+				movingTimeout = setTimeout(() => {
+					sortWordAction();
+				}, 1000);
 			}
 			return undefined
 		}
